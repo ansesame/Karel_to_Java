@@ -1,0 +1,34 @@
+package taller10;
+import acm.program.*;
+
+public class erastostenes extends ConsoleProgram{
+	
+	int n = 999;
+	int[] num = new int[n];
+	public void run() {
+		for( int i = 0 ; i < num.length; i++) {
+			num[i] = i+2;
+			println(num[i]);
+		}
+		
+		for(int i = 0; i < num.length; i++  ) {
+			for(int e = 0; e < num.length - i-1; e++ ) {
+				if( num[num.length - i-1]%num[e]==0) {
+					num[num.length -i-1] = 1;
+				}
+				
+			}
+			
+		}
+		println("Los números primosa entre 2 y "+n+"son: ");
+		int numprimos = 0;
+		for( int i = 0 ; i < num.length; i++) {
+			if(num[i]!=1) {
+				println(num[i]);
+				numprimos = numprimos + 1;
+			}
+		}
+		println("Existen "+numprimos+" números primos entre 2 y "+n);
+	}
+
+}
