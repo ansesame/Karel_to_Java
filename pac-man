@@ -5,13 +5,16 @@ import acm.graphics.*;
 import acm.program.GraphicsProgram;
 
 public class Punto3 extends GraphicsProgram{
+
+	GArc pac;
+	GArc pac2;
 	
 	public void run() {
-		GArc pac = new GArc(100, 100, 200, 200, 30,300);
+		pac = new GArc(100, 100, 200, 200, 30,300);
 		pac.setFilled(true);
 		pac.setColor(Color.YELLOW);
 
-		GArc pac2 = new GArc(200,100,200,200,30,360);
+		pac2 = new GArc(200,100,200,200,30,360);
 		pac2.setFilled(true);
 		pac2.setColor(Color.YELLOW);
 
@@ -24,10 +27,13 @@ public class Punto3 extends GraphicsProgram{
 		add(pac);
 		
 	}
-	public void inicio(ActionEvent e, GArc pac, GArc pac2 ) {
-		pac = pac;
-		pac2=pac2;
+	public void actionPerformed(ActionEvent e ) {
 		if(e.getActionCommand().equals("Iniciar")){
+			pause(300);
+			 pac.setVisible(false);
+			 add(pac2);
+			 pause(300);
+			 pac2.setVisible(false);
 			for(int i = 0; i < 7 ; i++  ) {
 				pac.move(200, 0);
 				pac.setVisible(true);
@@ -39,19 +45,13 @@ public class Punto3 extends GraphicsProgram{
 				pac2.setVisible(false);
 			}
 			pac2.setVisible(true);
-			
-		}
-	}
-	
-	public void resetear(ActionEvent e, GArc pac) {
-		pac = pac;
-		if(e.getActionCommand().equals("Reset")) {
+		}else if(e.getActionCommand().equals("Reset")) {
 			removeAll();
 			pac.setLocation(100, 100);
 			add(pac);
+			pac.setVisible(true);
 		}
 	}
-	
-	
-
 }
+	
+	
