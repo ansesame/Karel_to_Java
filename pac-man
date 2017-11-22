@@ -15,29 +15,43 @@ public class Punto3 extends GraphicsProgram{
 		pac2.setFilled(true);
 		pac2.setColor(Color.YELLOW);
 
-		add(pac);
-		pause(300);
-		pac.setVisible(false);
-		add(pac2);
-		pause(300);
-		pac2.setVisible(false);
-		for(int i = 0; i < 6 ; i++  ) {
-			pac.move(200, 0);
-			pac.setVisible(true);
-			pause(300);
-			pac.setVisible(false);
-			pac2.move(200, 0);
-			pac2.setVisible(true);
-			pause(300);
-			pac2.setVisible(false);
-		}
-		pac2.setVisible(true);
 		
+		add(new JButton("Iniciar"), SOUTH );
+		add(new JButton("Reset"), SOUTH);
+		addActionListeners();
+	
 
-				
-
-
+		add(pac);
+		
 	}
+	public void inicio(ActionEvent e, GArc pac, GArc pac2 ) {
+		pac = pac;
+		pac2=pac2;
+		if(e.getActionCommand().equals("Iniciar")){
+			for(int i = 0; i < 7 ; i++  ) {
+				pac.move(200, 0);
+				pac.setVisible(true);
+				pause(300);
+				pac.setVisible(false);
+				pac2.move(200, 0);
+				pac2.setVisible(true);
+				pause(300);
+				pac2.setVisible(false);
+			}
+			pac2.setVisible(true);
+			
+		}
+	}
+	
+	public void resetear(ActionEvent e, GArc pac) {
+		pac = pac;
+		if(e.getActionCommand().equals("Reset")) {
+			removeAll();
+			pac.setLocation(100, 100);
+			add(pac);
+		}
+	}
+	
 	
 
 }
