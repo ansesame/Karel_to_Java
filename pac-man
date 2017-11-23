@@ -41,7 +41,10 @@ public class Punto3 extends GraphicsProgram{
 				pac.setVisible(false);
 				pac2.move(200, 0);
 				pac2.setVisible(true);
+				pause(300);
+				pac2.setVisible(false);
 			}
+			pac2.setVisible(true);
 			
 		}else if(e.getActionCommand().equals("Reset")) {
 			removeAll();
