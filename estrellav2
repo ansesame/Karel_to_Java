@@ -1,0 +1,67 @@
+package graficas;
+import acm.program.GraphicsProgram;
+import acm.graphics.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+
+public class EstrellasV2 extends GraphicsProgram{
+	
+	private static final int tamEstrellaMin = 10;
+	private static final int tamEstrellaMax = 100;
+	private static final int tamEstrellaMean = 50;
+	private GObject obj;
+	private GPoint ultimo;
+	JSlider tamEstrella; 
+	GStar estrella;
+
+	public void init(){
+		add(new JButton("Limpiar"), SOUTH);
+		add(new JLabel("Pequeño"),SOUTH);
+		tamEstrella = new JSlider(JSlider.HORIZONTAL, tamEstrellaMin, tamEstrellaMax, tamEstrellaMean);
+		add(tamEstrella, SOUTH);
+		add(new JLabel("Grande"), SOUTH);
+		add(new JButton("Llenar/Vaciar"),SOUTH);	
+		
+
+		addMouseListeners();
+		addActionListeners();
+	}
+	
+	public void mouseClicked(MouseEvent e){
+		estrella = new GStar(tamEstrella.getValue());
+		estrella.setFilled(true);
+		add(estrella, e.getX(), e.getY());
+	}
+	
+
+	
+	public void mousePressed(MouseEvent e){
+		ultimo = new GPoint(e.getPoint());
+		obj = getElementAt(ultimo);
+	}
+	
+	public void mouseDragged(MouseEvent e){
+		if (obj !=null){
+			obj.move(e.getX() - ultimo.getX(), e.getY() - ultimo.getY());
+			ultimo = new GPoint(e.getPoint());
+		}
+	}
+	
+	public void actionPerformed(ActionEvent e){
+		if(e.getActionCommand().equals("Limpiar")){
+			removeAll();
+		}else if(e.getActionCommand().equals("Llenar/Vaciar")){
+			if(((GPolygon) obj).isFilled() == true) {
+			    ((GPolygon) obj).setFilled(false);
+			}else {
+				((GPolygon) obj).setFilled(true);
+			}
+		}
+	}
+
+}
