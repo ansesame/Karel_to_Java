@@ -9,7 +9,7 @@ public class Punto3 extends GraphicsProgram{
 	GArc pac;
 	GArc pac2;
 	
-	public void run() {
+	public void init() {
 		pac = new GArc(100, 100, 200, 200, 30,300);
 		pac.setFilled(true);
 		pac.setColor(Color.YELLOW);
@@ -50,7 +50,7 @@ public class Punto3 extends GraphicsProgram{
 			removeAll();
 			pac.setLocation(100, 100);
 			add(pac);
-			pac.setVisible(true);
+			setVisible(true);
 		}
 	}
 }
