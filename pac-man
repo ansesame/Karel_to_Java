@@ -31,7 +31,6 @@ public class Punto3 extends GraphicsProgram{
 		if(e.getActionCommand().equals("Iniciar")){
 			ejecutarNuevoThread();
 		}else if(e.getActionCommand().equals("Reset")) {
-			removeAll();
 			pac.setLocation(100, 100);
 			pac2.setLocation(200,100);
 		}
