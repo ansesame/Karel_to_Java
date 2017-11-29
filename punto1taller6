@@ -1,0 +1,99 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
+
+import acm.program.ConsoleProgram;
+
+public class OrdenamientoBurbuja extends ConsoleProgram{
+	
+	ArrayList<Double> lista = new ArrayList<Double>();
+	
+	public void run() {
+		leerdobles();
+		Double[] arreglo = new Double[lista.size()];
+		arreglo = lista.toArray(arreglo);
+		imprimirArreglo(arreglo);
+		ordenarBurbuja(arreglo);
+		imprimirArreglo(arreglo);
+		guardarArreglo(arreglo);
+	}
+	
+
+
+	public void ordenarBurbuja(Double[] arreglo) {
+		Double b;
+		for(int i = 0; i < arreglo.length - 1; i++ ) {
+			for(int j = arreglo.length - 1; j > i; j-- ) {
+				if(arreglo[j] < arreglo[j-1]) {
+					b = arreglo[j];
+					arreglo[j] = arreglo[j-1];
+					arreglo[j-1] = b;
+				}
+			}
+		}
+		
+	}
+	
+	
+	private void imprimirArreglo(Double[] arreglo){
+		println("---");
+		for(int i = 0; i < arreglo.length; i++){
+			println(arreglo[i]); 
+		}
+		println("---");
+	}
+
+	
+	public void leerdobles(){
+		JFileChooser fChooser = new JFileChooser(); 
+		int result = fChooser.showOpenDialog(this);
+		if(result == JFileChooser.APPROVE_OPTION){
+			File archivo = fChooser.getSelectedFile();
+			try{
+				FileReader fReader = new FileReader(archivo);
+				Scanner sc = new Scanner(fReader);
+				sc.useLocale(Locale.ENGLISH);
+				while(sc.hasNextDouble()){
+					double entrada = sc.nextDouble();
+					lista.add(entrada);
+				}
+				sc.close();
+				fReader.close();
+				
+			}catch(FileNotFoundException e){
+				println("EL archivo no se encontró");
+			}catch(IOException e){
+				println("EL archivo pudo leerse");
+			}
+		}	
+	}	
+	
+	
+	private void guardarArreglo(Double[] arreglo) {
+		JFileChooser fChooser = new JFileChooser(); 
+		int result = fChooser.showSaveDialog(this);
+		if(result == JFileChooser.APPROVE_OPTION){
+			File archivo = fChooser.getSelectedFile();
+			try{
+				FileWriter fWriter = new FileWriter(archivo);
+				PrintWriter writer = new PrintWriter(fWriter);
+				writer.println("El arreglo ordenado es :");
+				for(int i = 0; i < arreglo.length; i++){
+					writer.println(arreglo[i]); 
+				}
+				writer.close();
+			}catch(IOException e){
+				println("EL archivo pudo escribirse");
+			}
+		}
+		
+	}
+}
