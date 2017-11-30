@@ -1,0 +1,49 @@
+public class Proceso {
+
+	private String entidad;
+	private int NIT;
+	private String ID;
+	private int valor;
+	
+	public Proceso(String entidad, int nIT, String iD, int valor) {
+		super();
+		this.entidad = entidad;
+		NIT = nIT;
+		ID = iD;
+		this.valor = valor;
+	}
+
+	public String getEntidad() {
+		return entidad;
+	}
+
+	public void setEntidad(String entidad) {
+		this.entidad = entidad;
+	}
+
+	public int getNIT() {
+		return NIT;
+	}
+
+	public void setNIT(int nIT) {
+		NIT = nIT;
+	}
+
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
+
+	public int getValor() {
+		return valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+	
+
+}
