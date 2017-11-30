@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.Arrays;
+import java.util.Scanner;
+
+import acm.program.*;
+
+public class LeerCSV extends ConsoleProgram{
+	
+	String file= "C:\\\\Users\\prestamour\\Documents\\Andrés Salazar\\datosSECOP.csv";
+	String Entidad;
+	int NIT;
+	String id;
+	int valor;
+	public static final String separador=",";
+	
+	public void run() {
+		leerArchivo();
+	}
+	
+	public void leerArchivo () {
+		
+		
+		try {
+			int cantlinea=0;
+		FileReader fReader= new FileReader(file);
+		BufferedReader bufReader = new BufferedReader(fReader);
+		String linea = bufReader.readLine();
+		
+		while(linea != null){
+			println(linea);
+			cantlinea++;
+			linea = bufReader.readLine();
+			String [] palabras= linea.split(separador);
+			println (Arrays.toString(palabras));
+
+		}
+		bufReader.close();
+		}
+		catch(FileNotFoundException e){
+			println("EL archivo no se encontró");
+		}catch(IOException e){
+			println("EL archivo pudo leerse");
+		}
+
+}
+}
