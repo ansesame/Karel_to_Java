@@ -1,0 +1,74 @@
+import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+import acm.program.*;
+
+public class otrolectorCVS extends ConsoleProgram{
+	
+	String file= "C:\\\\Users\\prestamour\\Desktop\\Julian\\tarea 6  v2\\data\\datosSECOP.csv";
+	String Entidad;
+	int NIT;
+	String id;
+	int valor;
+	
+	HashMap<String,Proceso> mapaprocesos;
+	
+	public void run() {
+		mapaprocesos = new HashMap<String,Proceso>();
+		leerArchivo();
+		println(mapaprocesos.get("CO1.BDOS.152202"));
+		println(mapaprocesos.get("CO1.BDOS.173811"));
+	}
+	
+	public void leerArchivo () {
+		
+		
+		try {
+		FileReader fReader= new FileReader(file);
+		BufferedReader bufReader = new BufferedReader(fReader);
+		String linea = bufReader.readLine();
+		
+		while(linea != null){
+			
+			linea = bufReader.readLine();
+			StringTokenizer st = new StringTokenizer(linea, ",");
+			while(st.hasMoreTokens()) {
+				
+				Entidad = st.nextToken();
+				NIT = Integer.parseInt(st.nextToken());
+				id = st.nextToken();
+				valor = Integer.parseInt(st.nextToken());
+			}
+			Proceso procesoi = new Proceso(Entidad, NIT, id, valor);
+			mapaprocesos.put(id, procesoi);
+		}
+		bufReader.close();
+		
+		}
+		catch(FileNotFoundException e){
+			println("EL archivo no se encontró");
+		}catch(IOException e){
+			println("EL archivo pudo leerse");
+		}
+
+    }
+	
+	
+	private void imprimirTodosElementos() {
+		Iterator<String> iter = mapaprocesos.keySet().iterator();
+		println("--------------------------");
+		while(iter.hasNext()){
+			imprimirElemento(iter.next());
+		}
+		println("--------------------------");
+	}
+	
+	private void imprimirElemento(String llave) {
+		println("El valor que corresponde a la llave "+llave+" es "+mapaprocesos.get(llave));
+	}
+	
+}
