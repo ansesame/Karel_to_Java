@@ -1,20 +1,27 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import acm.program.*;
 
 public class LeerCSV extends ConsoleProgram{
 	
-	String file= "C:\\\\Users\\prestamour\\Documents\\Andrés Salazar\\datosSECOP.csv";
+	String file= "C:\\\\Users\\prestamour\\Desktop\\Julian\\tarea 6  v2\\data\\datosSECOP.csv";
 	String Entidad;
 	int NIT;
 	String id;
 	int valor;
 	public static final String separador=",";
 	
+	HashMap<String,Proceso> mapaprocesos;
+	
 	public void run() {
+		mapaprocesos = new HashMap<String,Proceso>();
 		leerArchivo();
+		println(mapaprocesos.get("CO1.BDOS.152202"));
+		imprimirTodosElementos();
 	}
 	
 	public void leerArchivo () {
@@ -27,12 +34,12 @@ public class LeerCSV extends ConsoleProgram{
 		String linea = bufReader.readLine();
 		
 		while(linea != null){
-			println(linea);
+			/*println(linea);*/
 			cantlinea++;
 			linea = bufReader.readLine();
-			String [] palabras= linea.split(separador);
-			println (Arrays.toString(palabras));
-
+			String [] campos= linea.split(separador);
+			
+			addconstructor(campos);
 		}
 		bufReader.close();
 		}
@@ -42,5 +49,28 @@ public class LeerCSV extends ConsoleProgram{
 			println("EL archivo pudo leerse");
 		}
 
-}
+    }
+	
+	public void addconstructor(String[] e) {
+		Entidad = e[0];
+		NIT = Integer.parseInt(e[1]);
+		id = e[2];
+		valor = Integer.parseInt(e[3]);
+		Proceso procesoi = new Proceso(Entidad, NIT, id, valor);
+		mapaprocesos.put(id, procesoi);	
+	}
+	
+	private void imprimirTodosElementos() {
+		Iterator<String> iter = mapaprocesos.keySet().iterator();
+		println("--------------------------");
+		while(iter.hasNext()){
+			imprimirElemento(iter.next());
+		}
+		println("--------------------------");
+	}
+	
+	private void imprimirElemento(String llave) {
+		println("El valor que corresponde a la llave "+llave+" es "+mapaprocesos.get(llave));
+	}
+	
 }
