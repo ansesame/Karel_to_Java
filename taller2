@@ -1,0 +1,50 @@
+/*
+ * miString.h
+ *
+ *  Created on: 9/02/2018
+ *      Author: vonnewmann
+ */
+
+#ifndef MISTRING_H_
+#define MISTRING_H_
+
+#include <string>
+
+std :: string gentextoinvertido(string texto);
+
+std :: void invertirtexto(string &texto);
+
+std :: void ocurrenciasc(string texto1, string texto2, char c);
+
+std :: void aminusculas(string &texto);
+
+std :: void borrarespacios(string &texto);
+
+
+
+#endif /* MISTRING_H_ */
+
+
+
+_________________________________________________________________________________________________________________--
+
+
+
+/*
+ * miString.cpp
+ *
+ *  Created on: 9/02/2018
+ *      Author: vonnewmann
+ */
+#include <iostream>
+#include <string>
+#include "miString.h"
+using namespace std
+		
+
+//Punto1
+string gentextoinvertido(string texto)
+
+
+
+
