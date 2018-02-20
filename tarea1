@@ -1,0 +1,202 @@
+/*
+ * LeerTeclado.cpp
+ 
+Andrés Salazar
+Tarea1-Punto2
+
+a) 
+Short contiene datos en 16 bits y tiene rango (-32768,32767)
+int contiene datos en 32 bits y tiene rango (-2147483648,2147483647)
+long contiene datos en 64 bits y tiene rango (-9223372036854775808,-9223372036854775807)
+
+La diferencia entre los datos signed y unsigned, es que el primero incluye los negativos, otorgando un bit para el signo. De esta manera, con los unsigned se tiene un rango mayor en los positivos usando el bit que se requeria para el signo.
+En ejemplo es signed char con rango (-128,127) y unsigned char con rango(0,255)
+
+La diferencia entre los datos float y double es que double almacena valores reales en doble precisión, miestras float maneja 32 bits con rango (3.4E⁻³⁸, 3.4E⁻³⁸), double maneja 64 bits con rango (1.7E⁻³⁰⁸, 1.7E³⁰⁸)
+
+b)
+Prefijo ++X, en este el valor de x primero se incrementa y luego se implementa.
+Prefijo X++, en este el valor primero se implementa y lu se incrementa.
+
+Ej: a=0
+b = a++ => b = 0, a = 1    Aquí b toma el valor que tenía a y luego de esto lo incrementa 1.
+b = ++a => b = 1, a = 1    Aquí a se incrementa en 1 y luego le asigna a b este valor.
+
+c) 
+[(12/3)*4]+[5*15]+[(24%4)/2]
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+ 
+ *
+ *  Created on: 19/02/2018
+ *      Author: vonnewmann
+ */
+
+#include<string>
+#include<iostream>
+using namespace std;
+
+string leerTLinea(string texto);
+string leerTPalabra(string texto2);
+
+int main1(){
+	string texto;
+	string texto2;
+	texto = leerTLinea(texto);
+	texto2 = leerTPalabra(texto2);
+	cout << texto;
+	cout << texto2;
+}
+
+string leerTLinea(string texto){
+	string saver;
+	cout << "Ingrese su texto (cuando acabe escriba'Fin0'):"<<endl;
+	while(saver!="Fin0"){
+	getline(cin, saver);
+	if (saver != "Fin0"){
+	texto = texto +  "\n" +saver;
+	cout << saver << endl;
+	}
+	}
+	return texto;
+}
+
+
+string leerTPalabra(string texto){
+	string saver;
+	cout << "Ingrese su texto(cuando acabe escriba'Fin0'):"<<endl;
+	while(saver !="Fin0"){
+		cin >> saver;
+		if(saver != "Fin0"){
+			texto = texto + "\n" + saver;
+			cout << saver << endl;
+		}
+	}
+	return texto;
+}
+
+
+------------------------------------------------------------------------------------------------------------------
+
+
+/*
+ * ANDRES_SALAZAR_tarea1_punto3.cpp
+ *
+ *  Created on: 19/02/2018
+ *      Author: vonnewmann
+ */
+#include<iostream>
+using namespace std;
+
+int main3(){
+	int a = sizeof(short);
+	int b = sizeof(int);
+	int c = sizeof(long);
+	int d = sizeof(float);
+	int e = sizeof(double);
+	int f = sizeof(long double);
+	int g = sizeof(bool);
+	int h = sizeof(char);
+	int i = sizeof(string);
+	cout << "El tamaño en bytes de los tipos de datos son:" << endl;
+	cout << "short: "<< a << endl;
+	cout << "int: " << b << endl;
+	cout << "long: " << c << endl;
+	cout << "float: " << d << endl;
+	cout << "double: " << e << endl;
+	cout << "long double: " << f << endl;
+	cout << "bool: " << g << endl;
+	cout << "char: " << h << endl;
+	cout << "char: " << i << endl;
+}
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+/*
+ * ANDRES_SALAZAR_tarea1_punto4.cpp
+ *
+ *  Created on: 19/02/2018
+ *      Author: vonnewmann
+ */
+#include<iostream>
+#include<string>
+#include<fstream>
+using namespace std;
+
+int numvocales(string texto);
+int numdigitos(string texto);
+
+int main(){
+	string texto;
+	cin >> texto;
+	int a = numvocales(texto);
+	int b = numdigitos(texto);
+	cout << a;
+	cout << b;
+}
+
+//Inciso a
+int numvocales(string texto){
+	int contador = 0;
+	for(int i = 0; i < texto.length();i++){
+		switch(texto[i]){
+		case 'a': contador++;
+		break;
+		case 'e': contador++;
+		break;
+		case 'i': contador++;
+		break;
+		case 'o': contador++;
+		break;
+		case 'u': contador++;
+		break;
+		case 'A': contador++;
+		break;
+		case 'E': contador++;
+		break;
+		case 'I': contador++;
+		break;
+		case 'O': contador++;
+		break;
+		case 'U': contador++;
+		break;
+		}
+	}
+	return contador;
+}
+
+//Inciso b
+int numdigitos(string texto){
+	int contador = 0;
+		for(int i = 0; i < texto.length();i++){
+			switch(texto[i]){
+			case '0': contador++;
+			break;
+			case '1': contador++;
+			break;
+			case '2': contador++;
+			break;
+			case '3': contador++;
+			break;
+			case '4': contador++;
+			break;
+			case '5': contador++;
+			break;
+			case '6': contador++;
+			break;
+			case '7': contador++;
+			break;
+			case '8': contador++;
+			break;
+			case '9': contador++;
+			break;
+			}
+		}
+		return contador;
+}
+
+---------------------------------------------------------------------------------------------------------------------------
