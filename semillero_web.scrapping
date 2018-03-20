@@ -1,0 +1,93 @@
+rm(list = ls())
+
+setwd("C:/Users/prestamour/Desktop/semillero-Salazar")
+
+install.packages("base64")
+install.packages("tm")
+install.packages("httr")
+install.packages("twitteR")
+install.packages("httpuv")
+install.packages("wordcloud")
+install.packages("stringr")
+install.packages("plyr")
+
+##WEB SCRAPPING TECHNIQUEs: FACEBOOK & TWITTER
+
+###PREAMBULO: INSTALAR PAQUETES y LLAMARLOS
+doInstall <- TRUE  # Change to FALSE if you don't want packages installed.
+toInstall <- c("base64", "tm", "httr", "twitteR", "devtools", "httpuv",
+               "wordcloud", "stringr", "plyr", "Rfacebook")
+if(doInstall){
+  install.packages(toInstall)
+}
+
+library(base64)
+library(tm)
+library(httr)
+library(twitteR)
+library(httpuv)
+library(wordcloud)
+library(stringr)
+library(plyr)
+
+#ACCESO A TWITTER
+# Set API Keys
+api_key <- "Ztn4eQvuVGryKmqGtqY53T3ar"
+api_secret <- "ntGoFxW5ulO0L1fDmm1zUucLcwRH5aFAdcrnPiAuDFycFbd8f3"
+access_token <- "973571057323069441-YGwa4hc9Ea01PQGnc6oskXePUBgQrls"
+access_token_secret <- "nm4KExHcwsHbA64H2RvNjmUCfEA8P1xod5jPoRJxhTC0i"
+setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
+
+tweets_sanders <- searchTwitter('@BernieSanders', n = 1500)
+library(plyr)
+feed_sanders = laply(tweets_sanders, function(t)t$getText())
+
+yay = scan('opinion-lexicon-English/positive-words.txt', what='character', comment.char=';')
+
+boo = scan('opinion-lexicon-English/negative-words.txt',what='character', comment.char=';')
+
+bad_text = c(boo, 'wtf', 'epicfail', 'douchebag')
+good_text = c(yay, 'upgrade', ':)', '#iVoted', 'voted')
+
+
+score.sentiment = function(sentences, good_text, bad_text, .progress='none')
+{
+    require(plyr)
+    require(stringr)
+    # we got a vector of sentences. plyr will handle a list
+    # or a vector as an "l" for us
+    # we want a simple array of scores back, so we use
+    # "l" + "a" + "ply" = "laply":
+    scores = laply(sentences, function(sentence, good_text, bad_text) {
+      
+      # clean up sentences with R's regex-driven global substitute, gsub():
+      sentence = gsub('[[:punct:]]', '', sentence)
+      sentence = gsub('[[:cntrl:]]', '', sentence)
+      sentence = gsub('\d', '', sentence)
+      #to remove emojis
+      sentence <- iconv(sentence, 'UTF-8', 'ASCII')
+      sentence = tolower(sentence)        
+      # split into words. str_split is in the stringr package
+      word.list = str_split(sentence, '\s')
+      # sometimes a list() is one level of hierarchy too much
+      words = unlist(word.list)
+      
+      # compare our words to the dictionaries of positive & negative terms
+      pos.matches = match(words, good_text)
+      neg.matches = match(words, bad_text)
+      
+      # match() returns the position of the matched term or NA
+      # we just want a TRUE/FALSE:
+      pos.matches = !is.na(pos.matches)
+      neg.matches = !is.na(neg.matches)
+      
+      # and conveniently enough, TRUE/FALSE will be treated as 1/0 by sum():
+      score = sum(pos.matches) - sum(neg.matches)
+      
+      return(score)
+    }, good_text, bad_text, .progress=.progress )
+    
+    scores.df = data.frame(score=scores, text=sentences)
+    return(scores.df)
+  }
+    
