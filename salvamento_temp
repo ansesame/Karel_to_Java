@@ -1,0 +1,32 @@
+#Punto2
+#I((-(p>q)>(rYs)Ot) = V = 1
+
+
+ej = 'pqY'
+ejarb = convert(ej)
+"""
+Inorder(ejarb)
+Inter = {'q':1,'p':1}
+
+Iej = Bonita(ejarb,Inter)
+print(Iej)
+"""
+print(interps)
+
+def interps_pos(A,Interps,valor):
+    pos_interps = {}
+    num_pos_interps = 0
+    for i in Interps:
+        if(Bonita(A,i) == valor):
+           pos_interps.append(i)
+           num_pos_interps += 1
+    if valor == 1:
+        tempv = "verdader"
+    elif valor == 0:
+        tempv = "falsa"
+    print("Hay "+num_pos_interps+" posibles interpretaciones que hacen que la cadena sea "+tempv+".")
+    return pos_interps
+
+a = interps_pos(ejarb,interps,1)
+print(a)
+
